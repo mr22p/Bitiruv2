@@ -5,6 +5,7 @@ class Graduate(models.Model):
     photo = models.ImageField(upload_to='graduates/')
     project_title = models.CharField(max_length=200)
     project_description = models.TextField()
+    project_link = models.URLField(blank=True, null=True)
 
     def __str__(self):
         return self.full_name

@@ -1,19 +1,53 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ graduate.full_name }}</title>
+    <style>
+        body {
+            font-family: Arial;
+            text-align: center;
+            padding: 40px;
+        }
+
+        img {
+            width: 250px;
+            border-radius: 15px;
+        }
+
+        .button {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 12px 25px;
+            background: linear-gradient(90deg, #2c5aa0, #7b2ff7);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: 0.3s;
+        }
+
+        .button:hover {
+            opacity: 0.8;
+        }
+    </style>
 </head>
 <body>
-    <h2>{{ graduate.full_name }}</h2>
 
-<img src="{{ graduate.photo.url }}" width="300">
+<h2>{{ graduate.full_name }}</h2>
+
+<img src="{{ graduate.photo.url }}">
 
 <h3>{{ graduate.project_title }}</h3>
+
 <p>{{ graduate.project_description }}</p>
 
-<a href="{% url 'home' %}">Orqaga</a>
+{% if graduate.project_link %}
+    <a href="{{ graduate.project_link }}" target="_blank" class="button">
+        🔗 Projectni ko'rish
+    </a>
+{% endif %}
+
+<br><br>
+<a href="{% url 'home' %}">⬅ Orqaga</a>
 
 </body>
 </html>
