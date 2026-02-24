@@ -5,49 +5,104 @@
     <style>
         body {
             font-family: Arial;
-            text-align: center;
+            margin: 0;
             padding: 40px;
+            background: #f4f4f4;
         }
 
-        img {
-            width: 250px;
+        .container {
+            display: flex;
+            gap: 40px;
+            max-width: 1100px;
+            margin: auto;
+        }
+
+        /* 👤 Chap taraf */
+        .left {
+            width: 30%;
+            text-align: center;
+        }
+
+        .left img {
+            width: 200px;
             border-radius: 15px;
+        }
+
+        .left h2 {
+            margin-top: 15px;
+        }
+
+        /* 📂 O‘ng taraf */
+        .right {
+            width: 70%;
+        }
+
+        .project-card {
+            background: white;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+
+        .project-card img {
+            width: 100%;
+            max-height: 250px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .project-card h3 {
+            margin-top: 15px;
         }
 
         .button {
             display: inline-block;
-            margin-top: 20px;
-            padding: 12px 25px;
-            background: linear-gradient(90deg, #2c5aa0, #7b2ff7);
+            margin-top: 10px;
+            padding: 8px 18px;
+            background: #2c5aa0;
             color: white;
             text-decoration: none;
-            border-radius: 8px;
-            transition: 0.3s;
+            border-radius: 6px;
         }
 
         .button:hover {
-            opacity: 0.8;
+            background: #7b2ff7;
         }
     </style>
 </head>
 <body>
 
-<h2>{{ graduate.full_name }}</h2>
+<div class="container">
 
-<img src="{{ graduate.photo.url }}">
+    <!-- 👤 Chap -->
+    <div class="left">
+        <img src="{{ graduate.photo.url }}">
+        <h2>{{ graduate.full_name }}</h2>
+    </div>
 
-<h3>{{ graduate.project_title }}</h3>
+    <!-- 📂 O‘ng -->
+    <div class="right">
 
-<p>{{ graduate.project_description }}</p>
+        {% for project in projects %}
+            <div class="project-card">
+                <img src="{{ project.image.url }}">
+                <h3>{{ project.title }}</h3>
+                <p>{{ project.description }}</p>
 
-{% if graduate.project_link %}
-    <a href="{{ graduate.project_link }}" target="_blank" class="button">
-        🔗 Projectni ko'rish
-    </a>
-{% endif %}
+                {% if project.link %}
+                    <a href="{{ project.link }}" target="_blank" class="button">
+                        Projectni ko‘rish
+                    </a>
+                {% endif %}
+            </div>
+        {% empty %}
+            <p>Hozircha loyiha mavjud emas.</p>
+        {% endfor %}
 
-<br><br>
-<a href="{% url 'home' %}">⬅ Orqaga</a>
+    </div>
+
+</div>
 
 </body>
 </html>

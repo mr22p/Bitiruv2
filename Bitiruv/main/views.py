@@ -21,8 +21,10 @@ def home(request):
 
 
 def graduate_detail(request, pk):
-    if not request.session.get('access_granted'):
-        return redirect('access_login')
-
     graduate = get_object_or_404(Graduate, pk=pk)
-    return render(request, 'detail.html', {'graduate': graduate})
+    projects = graduate.projects.all()
+
+    return render(request, 'detail.html', {
+        'graduate': graduate,
+        'projects': projects
+    })
