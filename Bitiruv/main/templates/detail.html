@@ -1,92 +1,87 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>{{ graduate.full_name }}</title>
-    <style>
-        body {
-            font-family: Arial;
-            margin: 0;
-            padding: 40px;
-            background: #f4f4f4;
-        }
+{% extends 'base.html' %}
 
-        .container {
-            display: flex;
-            gap: 40px;
-            max-width: 1100px;
-            margin: auto;
-        }
+{% block title %}{{ graduate.full_name }}{% endblock %}
 
-        /* 👤 Chap taraf */
-        .left {
-            width: 30%;
-            text-align: center;
-        }
+{% block content %}
+<style>
+    /* CSS stillarini block ichida saqlaymiz */
+    .container {
+        display: flex;
+        gap: 40px;
+        max-width: 1100px;
+        margin: auto;
+        padding-top: 40px;
+    }
 
-        .left img {
-            width: 200px;
-            border-radius: 15px;
-        }
+    .left {
+        width: 30%;
+        text-align: center;
+    }
 
-        .left h2 {
-            margin-top: 15px;
-        }
+    .left img {
+        width: 200px;
+        border-radius: 15px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
 
-        /* 📂 O‘ng taraf */
-        .right {
-            width: 70%;
-        }
+    .left h2 {
+        margin-top: 15px;
+    }
 
-        .project-card {
-            background: white;
-            padding: 20px;
-            margin-bottom: 20px;
-            border-radius: 10px;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
-        }
+    .right {
+        width: 70%;
+    }
 
-        .project-card img {
-            width: 100%;
-            max-height: 250px;
-            object-fit: cover;
-            border-radius: 8px;
-        }
+    .project-card {
+        background: white;
+        padding: 20px;
+        margin-bottom: 20px;
+        border-radius: 10px;
+        box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+    }
 
-        .project-card h3 {
-            margin-top: 15px;
-        }
+    .project-card img {
+        width: 100%;
+        max-height: 250px;
+        object-fit: cover;
+        border-radius: 8px;
+    }
 
-        .button {
-            display: inline-block;
-            margin-top: 10px;
-            padding: 8px 18px;
-            background: #2c5aa0;
-            color: white;
-            text-decoration: none;
-            border-radius: 6px;
-        }
+    .project-card h3 {
+        margin-top: 15px;
+    }
 
-        .button:hover {
-            background: #7b2ff7;
-        }
-    </style>
-</head>
-<body>
+    .button {
+        display: inline-block;
+        margin-top: 10px;
+        padding: 8px 18px;
+        background: #2c5aa0;
+        color: white;
+        text-decoration: none;
+        border-radius: 6px;
+        transition: 0.3s;
+    }
+
+    .button:hover {
+        background: #7b2ff7;
+    }
+</style>
 
 <div class="container">
-
-    <!-- 👤 Chap -->
     <div class="left">
-        <img src="{{ graduate.photo.url }}">
+        {% if graduate.photo %}
+            <img src="{{ graduate.photo.url }}" alt="{{ graduate.full_name }}">
+        {% endif %}
         <h2>{{ graduate.full_name }}</h2>
     </div>
 
-    <!-- 📂 O‘ng -->
     <div class="right">
-
         {% for project in projects %}
             <div class="project-card">
-                <img src="{{ project.image.url }}">
+                {% if project.image %}
+                    <img src="{{ project.image.url }}" alt="{{ project.title }}">
+                {% endif %}
+                
                 <h3>{{ project.title }}</h3>
                 <p>{{ project.description }}</p>
 
@@ -97,12 +92,10 @@
                 {% endif %}
             </div>
         {% empty %}
-            <p>Hozircha loyiha mavjud emas.</p>
+            <div class="project-card">
+                <p>Hozircha loyiha mavjud emas.</p>
+            </div>
         {% endfor %}
-
     </div>
-
 </div>
-
-</body>
-</html>
+{% endblock %}
