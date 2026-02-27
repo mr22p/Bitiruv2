@@ -3,85 +3,29 @@
 {% block title %}{{ graduate.full_name }}{% endblock %}
 
 {% block content %}
-<style>
-    /* CSS stillarini block ichida saqlaymiz */
-    .container {
-        display: flex;
-        gap: 40px;
-        max-width: 1100px;
-        margin: auto;
-        padding-top: 40px;
-    }
-
-    .left {
-        width: 30%;
-        text-align: center;
-    }
-
-    .left img {
-        width: 200px;
-        border-radius: 15px;
-        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    }
-
-    .left h2 {
-        margin-top: 15px;
-    }
-
-    .right {
-        width: 70%;
-    }
-
-    .project-card {
-        background: white;
-        padding: 20px;
-        margin-bottom: 20px;
-        border-radius: 10px;
-        box-shadow: 0 3px 10px rgba(0,0,0,0.1);
-    }
-
-    .project-card img {
-        width: 100%;
-        max-height: 250px;
-        object-fit: cover;
-        border-radius: 8px;
-    }
-
-    .project-card h3 {
-        margin-top: 15px;
-    }
-
-    .button {
-        display: inline-block;
-        margin-top: 10px;
-        padding: 8px 18px;
-        background: #2c5aa0;
-        color: white;
-        text-decoration: none;
-        border-radius: 6px;
-        transition: 0.3s;
-    }
-
-    .button:hover {
-        background: #7b2ff7;
-    }
-</style>
 
 <div class="container">
+
+    <!-- 👤 PROFILE -->
     <div class="left">
-        {% if graduate.photo %}
+        <div class="profile-card">
             <img src="{{ graduate.photo.url }}" alt="{{ graduate.full_name }}">
-        {% endif %}
-        <h2>{{ graduate.full_name }}</h2>
+            <h2>{{ graduate.full_name }}</h2>
+            <p>Python Developer | Backend Enthusiast</p>
+
+            <div class="social-links">
+                <a href="#">Telegram</a>
+                <a href="#">GitHub</a>
+                <a href="#">LinkedIn</a>
+            </div>
+        </div>
     </div>
 
+    <!-- 📂 PROJECTS -->
     <div class="right">
         {% for project in projects %}
             <div class="project-card">
-                {% if project.image %}
-                    <img src="{{ project.image.url }}" alt="{{ project.title }}">
-                {% endif %}
-                
+                <img src="{{ project.image.url }}" alt="{{ project.title }}">
                 <h3>{{ project.title }}</h3>
                 <p>{{ project.description }}</p>
 
@@ -92,10 +36,10 @@
                 {% endif %}
             </div>
         {% empty %}
-            <div class="project-card">
-                <p>Hozircha loyiha mavjud emas.</p>
-            </div>
+            <p>Hozircha loyiha mavjud emas.</p>
         {% endfor %}
     </div>
+
 </div>
+
 {% endblock %}

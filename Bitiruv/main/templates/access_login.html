@@ -1,18 +1,25 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Access Login</title>
-</head>
-<body>
-    <h2>Kirish kodi</h2>
+{% extends 'base.html' %}
 
-<form method="post">
-    {% csrf_token %}
-    <input type="text" name="code" placeholder="Kod kiriting">
-    <button type="submit">Kirish</button>
-</form>
+{% block title %}Kirish{% endblock %}
 
-</body>
-</html>
+{% block content %}
+
+<div class="login-wrapper">
+    <div class="login-card">
+        <h2>🔐 Kirish kodi</h2>
+
+        <form method="POST">
+            {% csrf_token %}
+            
+            <input type="text" name="code" placeholder="Kod kiriting" required>
+            
+            <button type="submit">Kirish</button>
+        </form>
+
+        {% if error %}
+            <p class="error">{{ error }}</p>
+        {% endif %}
+    </div>
+</div>
+
+{% endblock %}
